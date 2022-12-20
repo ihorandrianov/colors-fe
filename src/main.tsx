@@ -1,10 +1,11 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
+import { PageWithColors } from './pages/PageWithColors';
 import { Layout } from './pages/Layout';
-import { MainPage } from './pages/main-page/MainPage';
 
 const queryClient = new QueryClient();
 
@@ -15,11 +16,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MainPage />,
+        element: <PageWithColors />,
       },
       {
         path: '/color/:id',
         element: <></>,
+      },
+      {
+        path: '/group/:name',
+        element: <PageWithColors />,
       },
     ],
   },
@@ -29,6 +34,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>
 );

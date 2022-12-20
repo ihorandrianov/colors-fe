@@ -6,9 +6,14 @@ import { Pagination } from '../../components/ColorList/Pagination';
 
 export const MainPage: FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const { data, isLoading } = useQuery(['colors'], () =>
-    getColors(currentPage - 1, 12)
+  const [itemsPerPage, setItemsPerPage] = useState(12);
+  const { data, isLoading } = useQuery(
+    ['colors', currentPage, itemsPerPage],
+    () => getColors(currentPage - 1, itemsPerPage)
   );
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   if (isLoading) {
     return <p>Loading</p>;
@@ -17,7 +22,11 @@ export const MainPage: FC = () => {
   return (
     <div className="overflow-auto w-full">
       {data && <ColorList colors={data} />}
-      <Pagination />
+      <Pagination
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
+      />
     </div>
   );
 };

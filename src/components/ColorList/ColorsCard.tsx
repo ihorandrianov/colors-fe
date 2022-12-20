@@ -7,9 +7,9 @@ interface Props {
 
 export const ColorCard: FC<Props> = ({ color }) => {
   return (
-    <div className="h-[260px] w-[220px] border border-gray-500 rounded-lg overflow-hidden">
+    <div className="h-[260px] w-[220px] border border-gray-300 rounded-lg overflow-hidden shadow-md">
       <div
-        className="h-[200px]"
+        className="h-[200px] border border-white rounded-t-[7px]"
         style={{
           backgroundColor: color.hex,
         }}

@@ -14,15 +14,15 @@ export const Header: FC = () => {
           <g
             id="Symbols"
             stroke="none"
-            stroke-width="1"
+            strokeWidth="1"
             fill="none"
-            fill-rule="evenodd"
+            fillRule="evenodd"
           >
             <g
               id="header"
               transform="translate(-30.000000, -24.000000)"
               fill="#FFFFFF"
-              fill-rule="nonzero"
+              fillRule="nonzero"
             >
               <g id="logo-symbol" transform="translate(30.000000, 24.000000)">
                 <path
