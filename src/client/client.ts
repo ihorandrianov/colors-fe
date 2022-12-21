@@ -1,6 +1,6 @@
 import { Color } from '../types/color';
 
-const basicUrl = process.env.SERVER;
+const basicUrl = 'https://colors-backend-production.up.railway.app';
 
 export const getColors = async (
   page: number,
