@@ -1,6 +1,6 @@
 import { Color } from '../types/color';
 
-const basicUrl = 'http://localhost:3000';
+const basicUrl = process.env.SERVER;
 
 export const getColors = async (
   page: number,
