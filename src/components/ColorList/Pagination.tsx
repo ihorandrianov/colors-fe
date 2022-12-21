@@ -25,7 +25,7 @@ export const Pagination: FC<Props> = ({
   const pagesCount = Math.ceil(totalItems / itemsPerPage);
   const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center mb-5">
       <ul className="flex gap-5 ">
         {pages.map((page) => (
           <li key={page}>

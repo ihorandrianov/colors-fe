@@ -2,19 +2,22 @@ import { FC } from 'react';
 import { Color } from '../../types/color';
 
 interface Props {
-  color: Color;
+  color?: Color;
+  hsl?: string;
 }
 
-export const ColorCard: FC<Props> = ({ color }) => {
+export const ColorCard: FC<Props> = ({ color, hsl }) => {
   return (
-    <div className="h-[260px] w-[220px] border border-gray-300 rounded-lg overflow-hidden shadow-md">
+    <div className="h-full w-full flex flex-col border border-gray-300 rounded-lg overflow-hidden shadow-md hover:border-gray-800 duration-300">
       <div
-        className="h-[200px] border border-white rounded-t-[7px]"
+        className="h-3/4 border border-white rounded-t-[7px]"
         style={{
-          backgroundColor: color.hex,
+          backgroundColor: hsl || color?.hex,
         }}
       ></div>
-      <p className="text-lg mx-5 my-3">{color.hex}</p>
+      <div className="flex items-center w-full h-1/4">
+        <p className="text-lg mx-5">{color?.hex || hsl}</p>
+      </div>
     </div>
   );
 };

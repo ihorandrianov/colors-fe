@@ -1,26 +1,59 @@
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getColors } from '../client/client';
+import { FC } from 'react';
+import { ColorRing } from 'react-loader-spinner';
 import { ColorList } from '../components/ColorList/ColorList';
 import { Pagination } from '../components/ColorList/Pagination';
+import useColorsRender from '../hooks/colors-render.hook';
+import { Color } from '../types/color';
 
-export const PageWithColors = () => {
-  const { name } = useParams();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(12);
-  const { data, isLoading } = useQuery(
-    ['colors', currentPage, itemsPerPage, name],
-    () => getColors(currentPage - 1, itemsPerPage, name)
-  );
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
+interface Props {
+  fn: (
+    page: number,
+    limit: number,
+    query?: string,
+    name?: string
+  ) => Promise<Color[]>;
+}
+
+export const PageWithColors: FC<Props> = ({ fn }) => {
+  const {
+    handlePageChange,
+    isLoading,
+    data,
+    itemsPerPage,
+    currentPage,
+    name,
+    isError,
+  } = useColorsRender(fn);
   if (isLoading) {
-    <p>Loading</p>;
+    return (
+      <div className="w-full h-[calc(100vh_-_96px)] flex justify-center items-center">
+        <ColorRing
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="blocks-loading"
+          wrapperStyle={{}}
+          wrapperClass="blocks-wrapper"
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="w-full h-[calc(100vh_-_96px)] flex justify-center items-center">
+        <p>Something wrong happened</p>
+      </div>
+    );
   }
   return (
-    <div className="overflow-auto w-full">
+    <div className="overflow-auto h-[calc(100vh_-_96px)] w-full">
+      {data?.length === 0 && (
+        <div className="w-full h-[calc(100vh_-_96px)] flex justify-center items-center">
+          <p>I see nothing, try again!</p>
+        </div>
+      )}
       {data && <ColorList colors={data} />}
       {data && (
         <Pagination

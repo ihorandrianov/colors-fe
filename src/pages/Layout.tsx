@@ -7,7 +7,7 @@ export const Layout: FC = () => {
   return (
     <div className="overflow-hidden">
       <Header />
-      <div className="flex h-[86vh]">
+      <div className="flex relative">
         <Sidebar />
         <Outlet />
       </div>

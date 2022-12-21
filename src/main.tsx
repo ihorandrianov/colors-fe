@@ -6,6 +6,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import { PageWithColors } from './pages/PageWithColors';
 import { Layout } from './pages/Layout';
+import { OneColorPage } from './pages/OneColorPage';
+import { getColors, searchColor } from './client/client';
+import { ErrorPage } from './pages/ErrorPage';
 
 const queryClient = new QueryClient();
 
@@ -16,15 +19,22 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <PageWithColors />,
+        element: <PageWithColors fn={getColors} />,
+        errorElement: <ErrorPage />,
       },
       {
         path: '/color/:id',
-        element: <></>,
+        element: <OneColorPage />,
       },
       {
         path: '/group/:name',
-        element: <PageWithColors />,
+        element: <PageWithColors fn={getColors} />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: '/search/:query',
+        element: <PageWithColors fn={searchColor} />,
+        errorElement: <ErrorPage />,
       },
     ],
   },
@@ -34,7 +44,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
-      <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>
 );
