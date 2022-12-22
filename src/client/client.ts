@@ -1,6 +1,6 @@
 import { Color } from '../types/color';
 
-const basicUrl = 'https://colors-backend-production.up.railway.app';
+const basicUrl = 'https://colors-be.onrender.com';
 
 export const getColors = async (
   page: number,
